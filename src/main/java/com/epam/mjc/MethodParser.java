@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MethodParser {
-    private static final String splitterArgAndBeforeArg = "[\\(\\)]";
-    private static final String splitterBetweenWords = " ";
-    private static final String splitterBetweenArgs = ", ";
+    private static final String SPLITTER_ARG_AND_BEFORE_ARG = "[\\(\\)]";
+    private static final String SPLITTER_BETWEEN_WORDS = " ";
+    private static final String SPLITTER_BETWEEN_ARGS = ", ";
     /**
      * Parses string that represents a method signature and stores all it's members into a {@link MethodSignature} object.
      * signatureString is a java-like method signature with following parts:
@@ -27,7 +27,7 @@ public class MethodParser {
     public MethodSignature parseFunction(String signatureString) {
         StringSplitter splitter = new StringSplitter();
         ArrayList<String> mainDelimiter = new ArrayList<>();
-        mainDelimiter.add(splitterArgAndBeforeArg);
+        mainDelimiter.add(SPLITTER_ARG_AND_BEFORE_ARG);
         //split arguments and before arguments
         ArrayList<String> listArgAndBeforeArg = (ArrayList<String>) splitter.splitByDelimiters(signatureString, mainDelimiter);
         //if method have args
@@ -35,8 +35,8 @@ public class MethodParser {
         if (listArgAndBeforeArg.size() == 2) {
             String argumentsMethod = listArgAndBeforeArg.get(1);
             ArrayList<String> argsDelimiter = new ArrayList<>();
-            argsDelimiter.add(splitterBetweenArgs);
-            argsDelimiter.add(splitterBetweenWords);
+            argsDelimiter.add(SPLITTER_BETWEEN_ARGS);
+            argsDelimiter.add(SPLITTER_BETWEEN_WORDS);
             //split args on words
             ArrayList<String> listArgs = (ArrayList<String>) splitter.splitByDelimiters(argumentsMethod, argsDelimiter);
             for (int i = 0; i < listArgs.size(); i += 2) {
@@ -46,7 +46,7 @@ public class MethodParser {
         //split access modifier, return type and name
         String preArgumentMethod = listArgAndBeforeArg.get(0);
         ArrayList<String> beforeArgsDelimiter = new ArrayList<>();
-        beforeArgsDelimiter.add(splitterBetweenWords);
+        beforeArgsDelimiter.add(SPLITTER_BETWEEN_WORDS);
         ArrayList<String> listBeforeArgs = (ArrayList<String>) splitter.splitByDelimiters(preArgumentMethod, beforeArgsDelimiter);
 
         String methodRetType;
